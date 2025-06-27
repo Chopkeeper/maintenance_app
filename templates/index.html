@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ระบบซ่อมคอมพิวเตอร์</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>บันทึกการซ่อมคอมพิวเตอร์</h1>
+        <form action="/add" method="POST">
+            <input type="text" name="computer_name" placeholder="ชื่อเครื่อง" required>
+            <input type="text" name="problem" placeholder="ปัญหา" required>
+            <textarea name="details" placeholder="รายละเอียดการซ่อม" rows="4"></textarea>
+            <label><input type="checkbox" name="cleaned"> ทำความสะอาดแล้ว</label><br><br>
+            <button type="submit">บันทึก</button>
+        </form>
+
+        <h2>ประวัติการซ่อม</h2>
+        <ul>
+        {% for r in records %}
+            <li>
+                <b>{{ r.computer_name }}</b> | {{ r.repair_date.strftime('%Y-%m-%d') }} | {{ r.problem }}
+                {% if r.cleaned %} ✅ {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+        <a href="/export"><button>Export Excel</button></a>
+    </div>
+</body>
+</html>
